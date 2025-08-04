@@ -1,0 +1,35 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust</title>
+</head>  we are removing this and html tag at end of code bcoz boiler plate ke css wale effects lgane hai qki hmne style.css ki file ko boilerplate.ejs se link kr diya and biolerplate.ejs file ke effects yaha lg rhe hai -->
+<% layout ("/layouts/boilerplate") %>
+<!-- isse boiler plate.ejs wali file jo ki css file se link hai wo effets css ke lgenge also agr boilerplate ki file mein content likha hoga wo bhi show hoga on all pages -->
+<body>
+    <h3>Listing Details:</h3>
+<ul>
+    <li>title: <%=listingg.title %></li>
+    <li> description: <%=listingg. description%></li>
+  <!-- price mein hm rupees ka symbol lgayenge search google rupees symbol in html and paste it  -->
+    <li>price:&#8377;<%= listingg.price.toLocaleString("en-IN") %></li>
+    <!-- ab hme comma dalna pdega like 12000 to 12,000 iske liye hm function ko likhenge\
+     so function is toLocaleString("en-ind(jis contry ke hisab se lena ho wo )") String so ye function ek number ko string form ke andar convert krega 
+     finction .toLocalsString("en-in"): isse num ke andar commas aate hai-->
+    <li>location:<%=listingg.location %></li>
+    <li>Country:<%=listingg.country %></li>
+
+
+
+<br><br><br>
+<form action="/listings/<%=listingg._id%>/updateuser"><button>Edit</button></form>
+<!-- ab app.get("/listings/:id/updateuser" iske andar jao -->
+ <!-- jb method overrride patch ke liye kr rhe ho to form mein method get ka dalna then action aayega then method overrride patch aayega -->
+<!-- jb bhi method override delete ka kr rhe ho to post method dalna then action aayega then method overrride deleteh aayega-->
+<br><form method="post" action="/listings/<%=listingg._id%>/deleteuser?_method=Delete" ><button>Delete</button></form>
+<!-- ek error aya tha ki method ka M capital tha and delete ke liye methodoverride kr rha to method mein post chahiye to waha get tha jo ki hm patch ke methodoverride ke liye use krte hai -->
+<!-- ab app.delete route 4.b ke andar jao -->
+
+</ul>
+</body>

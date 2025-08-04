@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statue code </title>
+    <link rel="stylesheet" href="/css/style.css">
+    
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+   <%- include("../includes/navbar.ejs")%>
+
+    <!--  tested <h1>hi this is my travel website</h1> -->
+    <!-- boilerpalte ka code likhenge in views>boilerplate.ejs ye wala <percentagelayout- who(jiske/jispr hm effects dalna chahte hai )percentage> aur jis 
+        route .ejs file mein ye boilserplate ke effects chahuye unme in place of head tag <percentagen layout("/layouts/boilerplate")percentage> -->
+       <!-- <div class="container"><%- body %></div>   -->
+         <!-- ye content ke liye hogya ki content header aur footer ka same rhe pages ya routes change hone pr bhi -->
+          <!-- agr css effects lgane ho to css file is boilerplate.ejs se link kr do in head tag and agr css effects and content lgane ho for all pages to jis 
+        route .ejs file mein ye boilserplate ke effects chahiye unme in place of head tag <percentage"layout("/layouts/boilerplate")percentage>  -->
+         <!-- boiler plate mein navbar ke file path ko hm upar likhege -->
+
+<!--go to navbar.ejs in views/includes and paste the navbar code  qki  jo hmne boostrap se nav bar ke liye code copy kia use hm yaha bhi daal sakte hai but hm ek nya views ke andar folder bnayenge includes naam se 
+ taki hmara code organise and saral dikhe isse hm hr file ko thoda thoda hissa denge like nav bar ka code ek file mein then footer ka code ek file 
+ mein isse agr kl jakr hme kuch changes krne ho to hm unko us particulr file mein jakt fix kr sakte hai joki efficient coding hoti hai usse hme ek 
+ file mein pure code mein us code ko dhundne ki jarurat nhi hogi -->
+ <!-- ab jo ki hmne nav bar ka code alag file mein likha so hm yaha us file ka path likhenge -->
+  <!-- .. double dot ka mtlab hai ki dusre folder mein jao and . single dot ka mtlab hai ki isi folder mein jao -->
+  
+
+
+<%- include("../includes/footer.ejs")%>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script>
+        </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create new list</title>
+</head>
+<body>
+   <form method="post"  action="/listings/updatelist">
+    <input name="listing[title]" type="name" placeholder="Enter your title">
+    <br>
+    <textarea name="listing[descriptin]" placeholder="Enter description"></textarea>
+      <input name="listing[image]" type="name" placeholder="Enter image url/link">
+    <br>
+      <input name="listing[price]" type="number" placeholder="Enter price">
+      <!-- yaha ek error aya tha ki maine listing[price] ki jagah listing[number] likh diya so tha wo proice ki value db mein enter hi nhi kr pa rha tha take 1 hr  -->
+    <br>
+      <input name="listing[location]" placeholder="Enter your location">
+    <br>
+      <input name="listing[country]" placeholder="Enter your Country">
+    <br>
+    <button type="submit">Create</button>
+   </form>
+</body>
+</html>

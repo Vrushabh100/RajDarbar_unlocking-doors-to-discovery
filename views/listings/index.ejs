@@ -1,0 +1,43 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>  we are removing this and html tag at end of code bcoz boiler plate ke css wale effects lgane hai qki hmne style.css ki file ko boilerplate.ejs se link kr diya and biolerplate.ejs file ke effects yaha lg rhe hai -->
+<% layout ("/layouts/boilerplate") %>
+<!-- isse boiler plate.ejs wali file jo ki css file se link hai wo effets css ke lgenge also agr boilerplate ki file mein content likha hoga wo bhi show hoga on all pages 
+</head>
+<html> -->
+<body>
+     <% for (let listing of alllisting) { %>
+    <div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div> 
+</div>     <% } %> 
+
+    <!-- <a href="/listings/new"><button>create new list</button></a> -->
+    <!-- we can both either this ^ or this button as following form mein hmesha pehle get request likhna then path route nhi to err aayega new _id ka -->
+        <!-- <form method="GET" action="/listings/new" ><button>create new listing</button></form> commented thi button bcoz we are added nav bar using bootsrap-->
+    <!-- alllisting.title krne se lista nhi aayenge uske liye ek for loop lgana pdta hai -->
+   
+
+</ul>
+    <% for (let listing of alllisting) { %>
+        <!-- <li><=listing.title></li> isse apneko sare title browser pr mil jayenge -->
+        <!-- ab in title ko link ke form mein layenge taki jis bhi title pr click kro to us ka data show kre  -->
+         <!-- so jis title pr click kiya us title ke data ki id hme milegi hm shoe route create kr denge uske liye -->
+          <li><a href="/listings/<%=listing._id%>"><%=listing.title%></a></li>
+     
+        
+    <% } %> <ul>
+    <ul> <% let listing = alllisting %>
+        <!-- listing is an object and descriptin is a property we can access property using object i.e object.property -->
+    <!-- <=listing[0].description > -->
+</ul>
+   
+</body>
+<!-- </html> -->

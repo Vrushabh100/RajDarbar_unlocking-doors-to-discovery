@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update user/list</title>
+</head>
+<body>
+    <h1>hi hello</h1>
+    <form method="post"  action="/listings/<%=listingg._id%>/edited?_method=PUT">
+    <input name="listing[title]" type="name" value="<%=listingg.title%>">
+    <br>
+    <!-- sb mein place holder ki jagah value="<=listinggg.title>ye lgayenge taki form jb 
+     user ko milega tb usne pehle likha hua data dikhega taki wo use asani se edit kr paye" -->
+    <textarea name="listing[description]"><%=listingg.description%></textarea>
+      <input name="listing[image]" type="name" value="<%=listingg.image%>">
+    <br>
+      <input name="listing[price]" type="number" value="<%=listingg.price%>">
+             <!-- yaha ek error aya tha ki maine listing[price] ki jagah listing[number] likh diya so tha wo proice ki value db mein enter hi nhi kr pa rha tha take 1 hr  -->
+
+      <br>
+      <input name="listing[location]" value="<%=listingg.location%>">
+    <br>
+      <input name="listing[country]" value="<%=listingg.country%>">
+    <br>
+    <button type="submit">Edituser</button>
+   </form>
+    
+</body>
+</html>

@@ -1,0 +1,57 @@
+body{
+    background-color: rgb(246, 218, 223);
+    margin: 1px;
+    padding: 1px;
+}
+/* <!-- is style.css ki file ko boilerplate.ejs mein jakr link kr denge
+ isse boiler plate.ejs wali file jo ki css file se link hai wo effets css ke lgenge also agr boilerplate ki file mein css code hoga wo bhi show hoga on all pages -->
+ */
+
+ .navbar{
+    height: 5rem;
+    /* background-color: white; bcoz bg blur effect will not visible*/ 
+    backdrop-filter: blur(8px); /* adds blur effect */
+ }
+ .fa-compass{
+    color:rgb(251, 102, 102);
+    font-size: 2rem; 
+    /* font size se icon bada hota hai */
+ }
+.navbar-nav{
+    color: #222222 !important;
+    /* !important : agr hm chahte hai ki hmari jo custom styling hai wo bootstrap ki styling se over power kr jaye to hm important mark dete hai taki user website pe aaye to bootstrap se pehle hmari styling aa jaye */
+} 
+.f-info-social{
+    font-size: 2rem;
+    margin-right: 1.2rem;
+}
+.f-info-social i{
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+    /* jo hmne extra a likhaclass mein wo .class mein anchor tag hai */
+}
+.f-info-links a:hover{
+     text-decoration: underline;
+     color: rgb(0, 0, 244);
+    /* jo hmne extra a likhaclass mein wo .class mein anchor tag hai */
+}
+
+.f-info {
+     text-align: center;
+    height: 8rem;
+    background-color: grey;
+     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+.f-info-links ,.f-info-social ,.f-info-brand{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
