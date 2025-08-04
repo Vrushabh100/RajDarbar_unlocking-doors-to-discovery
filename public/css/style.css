@@ -2,25 +2,24 @@ body{
     background-color: rgb(246, 218, 223);
     margin: 1px;
     padding: 1px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-/* <!-- is style.css ki file ko boilerplate.ejs mein jakr link kr denge
- isse boiler plate.ejs wali file jo ki css file se link hai wo effets css ke lgenge also agr boilerplate ki file mein css code hoga wo bhi show hoga on all pages -->
- */
 
  .navbar{
     height: 5rem;
-    /* background-color: white; bcoz bg blur effect will not visible*/ 
     backdrop-filter: blur(8px); /* adds blur effect */
  }
  .fa-compass{
-    color:rgb(251, 102, 102);
+    color:#fe424d;
     font-size: 2rem; 
-    /* font size se icon bada hota hai */
  }
 .navbar-nav{
     color: #222222 !important;
-    /* !important : agr hm chahte hai ki hmari jo custom styling hai wo bootstrap ki styling se over power kr jaye to hm important mark dete hai taki user website pe aaye to bootstrap se pehle hmari styling aa jaye */
+     backdrop-filter: blur(8px);
 } 
+
 .f-info-social{
     font-size: 2rem;
     margin-right: 1.2rem;
@@ -48,6 +47,8 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     align-items: space-evenly;
+    /* padding-bottom: 100px; */
+  
 }
 .f-info-links ,.f-info-social ,.f-info-brand{
     width: 100%;
@@ -55,3 +56,121 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+/* cards ke liye styling krenge */
+.listing-card{
+     border: none !important;
+     margin-bottom: 2rem !important;
+    
+}
+
+.card-body{
+ padding: 0 !important;
+}
+
+.card-title{
+    font-weight: 400;
+}
+
+.card-img-top{
+  border-radius: 1rem !important;
+  width: 100%;
+  object-fit: cover !important;
+}
+
+.listing-link{
+    text-decoration: none;
+}
+
+/* card effects  */
+/* card image overlay bootstrap ke andar ek property hoti hai jo image ke upar kuch text show krati hai  */
+.card-image-overlay{
+   opacity: 0;
+}
+.card-image-overlay:hover{
+    opacity: 0.2;
+   background-color: rgb(248, 236, 236);
+}
+
+.main-content{
+    padding-bottom: 100px;
+}
+.container{
+    flex: 1;
+  
+}
+.add-btn{
+    background-color: #fe424d!important;  
+    /* isse jo pehle black color tha btn ka bootstrap mein wo important likhne se override hogya */
+    border-color: white;
+}
+.btn-edit{
+      background-color: #fe424d!important;
+        
+}
+
+.show-img{
+    height: 45vh;
+    /* weidth ko adjust krne  ke liye hm show.ejs mein iski class mein row and column set krenge to center content in page : col-8 offset-2 */
+}
+.btns{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.showcard{
+    padding-left: 0;
+    padding-right: 0;
+}
+#map {
+        height: 330px;
+        width: 100vh;
+        border-radius: 30px;
+}
+
+
+
+
+.filterss{
+ display: flex;
+flex: wrap;
+ margin: right;
+
+     }
+.filter , .tax-switch{
+  text-align: center;
+ margin-right: 2rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+        }
+.filter:hover{
+ cursor: pointer;
+ opacity: 1;
+        }
+.filter p{
+ font-size: 0.8rem;
+   }
+    
+.tax-switch{
+ border-color:1px solid black;
+ border-radius: 1rem ;
+ font-size: 22px;
+ align-items: center;
+        }
+.tax-info{       
+  display: none;
+        }
+.filter-link {
+ text-decoration: none;
+color: inherit; 
+ }
+.form-check-label{
+    border: 3px;
+    font-size: 1rem;
+    }
+/* .tax-switch{
+    border: 2px solid red;
+    box-shadow: 4px #fe424d;
+    display: flex;
+    text-align: start;
+} */

@@ -7,15 +7,87 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" href="#">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
-        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        <a class="nav-link active ms-2" href="/listings">Home</a>
+        <a class="nav-link ms-2" href="/listings">Explore</a>
+       </div>
+
+   <style>
+     
+
+
+
+
+    @media (max-width: 768px) {
+    .nav-link {
+        /* Re-apply your glass effect styles here */
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        margin-top: 35px;
+        margin-bottom: 5px; /* Add some spacing for vertical layout */
+        width: 30%; /* Make them full-width */
+        text-align: center;
+    }
+}
+    .btn-search{
+         background-color: #fe424d;
+         color: #ffff;
+         border-radius: 25px;
+         padding: 0 1rem 0 1rem;
+    }
+    .btn-search:hover{
+         background-color: #ff3d4a;
+         color: #ffff;
+    }    
+    .btn-search i{
+             display: inline;
+             margin-right: 0.5rem;
+    }
+    .search-inp{
+         border-radius: 25px;
+          opacity: 0.5;  
+          font-size: 1rem;
+          font-style: italic;
+          background: rgba(255, 255, 255, 0.15);
+              /* 3. A subtle border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    /* 4. Rounded corners */
+    border-radius: 12px;
+    
+    /* 5. A subtle shadow for depth */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+
+    /* For smooth transition on hover */
+    transition: background 0.3s ease-out;
+    }
+    .search-inp:hover{
+         background: rgba(255, 255, 255, 0.3);
+    }
+   </style>
+
+
+
+
+
+
+      <div class="navbar-nav ms-auto  search">
+         <form class="d-flex" role="search" method="get" action="/listings">
+      <input class="form-control me-2 search-inp" type="text" name="q"   placeholder="Search Places" aria-label="Search Places"/>
+      <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass-location"></i>Search</button>
+    </form>
+  </div>
+
+          <div class="navbar-nav ms-auto">
+             <a class="nav-link" href="/listings/new">List Places</a>
+      <%if(!curruser){ %>
+        <a class="nav-link ms-2" href="/signup"><b>Sign-up</b></a>
+        <a class="nav-link ms-2" href="/login"> <b>Login</b></a>
+        <% } %> <%if (curruser) {%>
+        <a class="nav-link ms-2" href="/logout"><b>Logout</b></a> 
+        <% } %>      
       </div>
     </div>
   </div>
 </nav>
-<!-- for icon insted in nav name go to font awesome >icons>searh navigetion> cpy link paste it in navbar brand at name palet
- go to fontawesome cdn link o  cdnjs then cpy paste it in boilerplate head tag-->
-
- <!-- ab hm thode customs addon krenge apni taraf se style.css mein -->

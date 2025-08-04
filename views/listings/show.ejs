@@ -1,35 +1,128 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
-</head>  we are removing this and html tag at end of code bcoz boiler plate ke css wale effects lgane hai qki hmne style.css ki file ko boilerplate.ejs se link kr diya and biolerplate.ejs file ke effects yaha lg rhe hai -->
+
 <% layout ("/layouts/boilerplate") %>
 <!-- isse boiler plate.ejs wali file jo ki css file se link hai wo effets css ke lgenge also agr boilerplate ki file mein content likha hoga wo bhi show hoga on all pages -->
 <body>
-    <h3>Listing Details:</h3>
-<ul>
-    <li>title: <%=listingg.title %></li>
-    <li> description: <%=listingg. description%></li>
-  <!-- price mein hm rupees ka symbol lgayenge search google rupees symbol in html and paste it  -->
-    <li>price:&#8377;<%= listingg.price.toLocaleString("en-IN") %></li>
-    <!-- ab hme comma dalna pdega like 12000 to 12,000 iske liye hm function ko likhenge\
-     so function is toLocaleString("en-ind(jis contry ke hisab se lena ho wo )") String so ye function ek number ko string form ke andar convert krega 
-     finction .toLocalsString("en-in"): isse num ke andar commas aate hai-->
-    <li>location:<%=listingg.location %></li>
-    <li>Country:<%=listingg.country %></li>
 
+    <div class="card_title col-6 offset-2 mt-3">
+     <h2>  <b><%=listingg.title %> </b>  </h2>
+      <br>
 
+ 
+    </div>
+    
+    <!-- editing show.ejs part b -->
+      <div class="card listing-card mt-3 showcard">
 
+          <div class="card listing-card col-6 offset-2" style="width: 47rem; height:auto;">
+  <img class="card-img-top show-img" src="<%=listingg.image.url%>" alt="listing_image"></div>
+  <div class="card-body col-6 offset-2 mt-0">
+    <p class="card-text">
+          <h5>Created by: <i><%=listingg.owner.username%></i></h5>
+             <%=listingg. description%> <br> 
+            
+             <b >&#8377; <%= listingg.price.toLocaleString("en-IN") %> </b><br>
+                @ <%=listingg.category %> <br>
+                <%=listingg.location %> <br>
+                  
+                  <%=listingg.country %> <br>
+            
+            
+            </p>
+                 <div class="btns">
+             
+                  <% if(curruser && curruser._id.equals(listingg.owner._id)){ %>
+          
+                  
+    <form action="/listings/<%=listingg._id%>/updateuser" ><button class="btn btn-dark col-25 btn-edit offset-0">Edit</button></form> 
+    <form method="post" action="/listings/<%=listingg._id%>/deleteuser?_method=Delete" ><button class="btn btn-dark col-30 offset-2">Delete</button></form>
+   
+                                              <% } %>
+    <!-- offset se daye and baye hota hai wo particular div --> 
+                                 <% if(curruser && curruser._id.equals(listingg.owner._id)){ %>   
+                                  <a href="/listings" class="btn btn-dark btn-edit ms-4"><i class="fa-solid fa-house-chimney"></i> Back</a>
+        <!-- <a href="/listings"><button class="btn btn-dark btn-edit col-8 offset-2"><div><i class="fa-solid fa-house-chimney"></i> Back</div></button></a>  -->
+                                                     <% }else{ %>
+<a href="/listings"><button class="btn btn-dark btn-edit"><div><i class="fa-solid fa-house-chimney"></i> Back</div></button></a> 
+                                              <% } %>
+
+</div>
+<hr>
+<div class="col-8 offset-0 mb-3">
+  <% if(curruser){ %>
+  <h4>Leave a Review</h4>
+  <form method="post" action="/listings/<%=listingg._id%>/reviews"  novalidate class="needs-validation">
+    <div class="mb-3 mt-3">
+      <label for="rating" class="form-label">Rating</label>
+      <input type="range" min="1" max="5" id="rating" name="reviews[rating]" class="form-range">
+                 <div class="invalid-feedback">please enter your review</div>
+
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="comment" class="form-label" >
+        <textarea name="reviews[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+                   <div class="invalid-feedback">Please Enter Some Comment </div>
+
+        <button type="submit" class="btn btn-outline-dark mt-3 ">Submit</button>
+      </label>
+    </div>
+  </form>
+  <hr>
+  <% } %>
+
+<h4>All Reviews  </h4>
+
+ <p><b>Reviews</b></p>
+ <div class="row">
+  <!-- <a href="/login">  <button>Add Review</button></a> -->
+
+  <% for(let review of listingg.reviews) { %>
+    <div class="card col-5 ms-3 mb-3">
+      <div class="card-body">         <h5 class="card-title">@<%=review.author.username%></h5>
+         <p class="card-text"><%=review.rating%></p>
+         <p class="card-text"><%=review.comment%></p>
+        
+        <form method="post" action="/listings/<%=listingg._id%>/reviews/<%=review._id%>?_method=DELETE">
+                    <button class="btn btn-sm btn-dark mb-2">Delete</button>
+                         
+
+        </form></div>
+    </div>   
+  <% } %>
+ </div>
+</div>
+</div>
+<ul>   
+
+ </div>
+      <div class="card listing-card col-6 offset-2">
+
+       <hr>
+       <h3>Where you'll be!</h3>
+       <div id="map"></div>  
+      </div>
 <br><br><br>
-<form action="/listings/<%=listingg._id%>/updateuser"><button>Edit</button></form>
-<!-- ab app.get("/listings/:id/updateuser" iske andar jao -->
- <!-- jb method overrride patch ke liye kr rhe ho to form mein method get ka dalna then action aayega then method overrride patch aayega -->
-<!-- jb bhi method override delete ka kr rhe ho to post method dalna then action aayega then method overrride deleteh aayega-->
-<br><form method="post" action="/listings/<%=listingg._id%>/deleteuser?_method=Delete" ><button>Delete</button></form>
-<!-- ek error aya tha ki method ka M capital tha and delete ke liye methodoverride kr rha to method mein post chahiye to waha get tha jo ki hm patch ke methodoverride ke liye use krte hai -->
-<!-- ab app.delete route 4.b ke andar jao -->
 
 </ul>
+
+    <script>
+    // Safely pass the entire listing object to your script
+    const listingg = <%- JSON.stringify(listingg) %>;
+    const coordinates = listingg.geometry.coordinates;
+
+    // Initialize the map, centered on the listing's coordinates.
+    // NOTE: GeoJSON stores coordinates as [longitude, latitude], but Leaflet's
+    // setView and marker functions expect [latitude, longitude]. We reverse them.
+    const map = L.map('map').setView(coordinates.slice().reverse(), 12);
+
+    // Add the visual map layer from OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy;<a href="https://www.linkedin.com/in/vrushabh-udepurkar-054559251">Vrushabh_Udepurkar___</a> <a href="https://www.openstreetmap.org/copyright">Linkdein</a> '
+    }).addTo(map);
+
+    // Add a marker at the exact location
+    L.marker(coordinates.slice().reverse())
+        .addTo(map)
+        .bindPopup(`<b>${listingg.title}</b><br>${listingg.location}`)
+        .openPopup();
+</script>
 </body>

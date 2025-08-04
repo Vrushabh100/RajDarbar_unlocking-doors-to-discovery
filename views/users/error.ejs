@@ -1,0 +1,18 @@
+<% layout ("/layouts/boilerplate") %>
+
+
+<div class="row">
+    <!-- add effects red alert -->
+<div class="alert alert-danger col-6 offset-3" role="alert"> 
+    <!-- add danger symbol -->
+     <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <p class="alert-heading"><%=message%></p>
+      <!-- error stack means jo paths wala error ata hai wo pr hm wo prefer nhi krte bhadda lgta hai -->
+       <!-- <p><err.stack %>/p> -->
+        <a href="/listings/new">  <button class="btn btn-dark">fix It</button></a>
+      
+
+</div>
+
+</div>
+<!-- and ye likhke in app.js last error handler mein res.render krva do like res.render("error.ejs"); -->

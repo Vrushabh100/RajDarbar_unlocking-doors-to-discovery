@@ -1,0 +1,27 @@
+
+<% if(successMsg && successMsg.length){ %>
+    <!-- agr successMsg exist krega to ho print krwana aur successMsg ek array hai aur wo khali nhi hona chahiye uske liye success.length -->
+
+<div class="alert alert-success alert-dismissible fade show cols-2 offset-1" role="alert">
+
+    <p><%=successMsg %></p>
+    <!-- button to dismiss the alert -->
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+</div>
+   
+<% } %>
+
+
+<% if(error && error.length){ %>
+    <!-- agr errorMsg exist krega to ho print krwana aur errorMsg ek array hai aur wo khali nhi hona chahiye uske liye error.length -->
+
+<div class="alert alert-danger alert-dismissible fade show cols-10 offset-0" role="alert">
+
+    <p><%=error %></p>
+    <!-- button to dismiss the alert -->
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+</div>
+   
+<% } %>

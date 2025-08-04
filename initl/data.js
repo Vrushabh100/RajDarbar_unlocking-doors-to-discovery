@@ -13,6 +13,7 @@ const sampleListings = [
     price: 1200,
     location: "New York City",
     country: "United States",
+    
   },
   {
     title: "Mountain Retreat",

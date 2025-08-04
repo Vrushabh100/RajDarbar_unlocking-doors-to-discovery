@@ -1,30 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update user/list</title>
-</head>
-<body>
-    <h1>hi hello</h1>
-    <form method="post"  action="/listings/<%=listingg._id%>/edited?_method=PUT">
-    <input name="listing[title]" type="name" value="<%=listingg.title%>">
-    <br>
-    <!-- sb mein place holder ki jagah value="<=listinggg.title>ye lgayenge taki form jb 
-     user ko milega tb usne pehle likha hua data dikhega taki wo use asani se edit kr paye" -->
-    <textarea name="listing[description]"><%=listingg.description%></textarea>
-      <input name="listing[image]" type="name" value="<%=listingg.image%>">
-    <br>
-      <input name="listing[price]" type="number" value="<%=listingg.price%>">
-             <!-- yaha ek error aya tha ki maine listing[price] ki jagah listing[number] likh diya so tha wo proice ki value db mein enter hi nhi kr pa rha tha take 1 hr  -->
 
-      <br>
-      <input name="listing[location]" value="<%=listingg.location%>">
-    <br>
-      <input name="listing[country]" value="<%=listingg.country%>">
-    <br>
-    <button type="submit">Edituser</button>
-   </form>
+<% layout ("/layouts/boilerplate") %>
+<body>
+  <div class="main-content mt-3">
+    <!-- mt-3 yani upar se kitna niche means margin from top in bootstrap property -->
+       <div class="row">
+
+            <div class="col-8 offset-2">
+            <div>Edit Your Listing</div>
+
+              <form method="post" novalidate class="needs-validation"  action="/listings/<%=listingg._id%>/edited?_method=PUT" enctype="multipart/form-data">
+
+
+                   <div class="mb-3 mt-3">
+                     <label for="title" class="form-label">Title</label> 
+      
+       
+                       <input name="listing[title]" class="form-control" type="text" required  value="<%=listingg.title%>">
+                       <div class="valid-feedback">title looks good</div>
+                              </div>
+                       <div class="mb-3 col-20">
+                       <label for="description" class="form-label">Description</label> 
+                        <textarea name="listing[description]" required class="form-control" ><%=listingg.description%></textarea> </div>
+                       <div class="mb-3">Origional listing image <br><img src="<%=orgimg%>" alt="image"></div>
+
+
+                          <div class="mb-3">
+                          <label for="image" class="form-label">Upload New Image</label>  
+      
+                             <input name="listing[image]" class="form-control" type="file"/>
+                                       
+                         </div>
+                  <!-- category -->
+                      <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select name="listing[category]" id="category" class="form-select" required>
+        <option selected disabled value="">Choose a category...</option>
+        <option value="Rooms">Rooms</option>
+        <option value="Amazing Views">Amazing Views</option>
+        <option value="Iconic cities">Iconic cities</option>
+        <option value="Surfing">Surfing</option>
+        <option value="Amazing Pools">Amazing Pools</option>
+        <option value="Beach">Beach</option>
+        <option value="Cabins">Cabins</option>
+        <option value="Lake front">Lake front</option>
+        <option value="Pool">Pool</option>
+
+    </select>
+    <div class="invalid-feedback">
+        Please select a valid category.
+    </div>
+</div>
+
+
+
+                       <!-- price and country ke liye hmne same row mein add kia -->
+                        <div class="row">
+                      <div class="mb-3 col-md-4">
+                          <label for="price"  class="form-label">Price</label>  
+      
+                               <input name="listing[price]" required class="form-control" type="number" value="<%=listingg.price%>">
+                                     <div class="invalid-feedback"> Please select a valid price</div>
+                                </div>
+             <!-- yaha ek error aya tha ki maine listing[price] ki jagah listing[number] likh diya so tha wo proice ki value db mein enter hi nhi kr pa rha tha take 1 hr  -->
+                      <div class="mb-3 col-md-4">
+                          <label for="country" class="form-label">Country</label>  
+        
+                         <input name="listing[country]" required class="form-control" value="<%=listingg.country%>">
+                                 <div class="invalid-feedback"> Please select a valid Country </div>
+                        </div>   
+                    </div>
+
+
+                     <div class="mb-3 col-4">
+                     <label for="location" class="form-label">Location</label>  
+        
+                     <input name="listing[location]" required class="form-control" value="<%=listingg.location%>">
+      
+                         <div class="invalid-feedback"> Please select a valid location </div>
+                 </div> 
+                    <button type="submit" class="btn btn-dark btn-edit mt-3">Confirm</button>
+                      
+            
+          </form>
+          
+      </div>
+   </div>
+
+   </div>
     
 </body>
 </html>
