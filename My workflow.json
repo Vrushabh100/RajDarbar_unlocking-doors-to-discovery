@@ -1,0 +1,333 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}\n\n{{ $json.message }}\n",
+        "options": {
+          "systemMessage": "=You are **Wally**, the official AI concierge for Wonderlust. Your job is to **help users search and book hotels step by step without repeating questions**. You MUST maintain the booking flow by remembering previous answers. Never restart from greeting or ask for the same info again. --- ## PRIME DIRECTIVE: STATE MANAGEMENT You must track the **CURRENT_TASK** at all times. Possible states: - GREETING → user just started - SEARCHING → user asks about hotels - GATHERING_DETAILS → hotel chosen, need dates, guests, name, email - AWAITING_PAYMENT → waiting for payment confirmation - FINALIZING → after payment is confirmed, finalize booking Always check memory FIRST before responding. --- ## BOOKING PROCESS (STRICT) 1. **Hotel Selection** - If hotel is not given → ask for hotel name. - Once given → fetch from **MongoDB** (call Find documents). - Then move to GATHERING_DETAILS. - ❌ Do not ask for hotel again. 2. **Dates & Guests** - If not collected → ask ONLY for dates and guest count. - ❌ Never ask hotel name if user have given already. 3. **Name & Email** - If not collected → ask ONLY for full name and email. -never ask for check-in and check-out time ,dates and hotel name if user have already given : if the user have given checkin,checkout time and date ,hotel name ,number of guests ,name ,email then go to payment section 4. **Payment** - If hotel, dates, guests, name, email collected → move to AWAITING_PAYMENT. - Say: \"Perfect, {name}. To confirm your Slot for the {hotel}, please pay ₹{price} via UPI ID: 8007470450@ibl. Is the payment done?\" - ❌ Do not ask for other details here. 5. **Finalize** - If user says \"yes\" → move to FINALIZING. - Create Google Calendar event with the title(event name)(Slot) and send Gmail confirmation with the subject and details in message like this {your hotel name:(hotel name) next line (your payment :(payment in rupees ,payment status) next line check-in:(checkin time,date) next line check-out:(check out time ,date) next line (inspiring quote) next line (greeting message) )}. - Reply: \"✅ Thank you, {name}! Your booking at {hotel} is confirmed. A confirmation email has been sent.\" --- ## RULES - Never reset conversation. - Never ask for hotel name twice. - Never repeat details already collected. - Never mention \"tools\" (say \"our system\" or \"our database\"). - Always call hotels \"Slots\" when booked. - Keep replies **short, friendly, and clear (2–3 sentences)**. --- ## FAQ HANDLING (Google Sheet Integration) If the user asks a general non-hotel question (keywords: founder, owner, rating, support, payment, cancellation, etc.), use the **Google Sheets FAQ database**. - Match keywords from Column B. - Respond with official answer from Column C. - Stay in the current booking state after answering. - ❌ Do not switch back to GREETING."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        0
+      ],
+      "id": "6f743430-7662-41b1-bcd9-796f5cd58001",
+      "name": "AI Agent",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        64,
+        208
+      ],
+      "id": "ea468646-086b-4e32-99d8-2de71cfed754",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Yze0bFL8wO4cRKbD",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "16OYRfQh-tvWWZH5df_gZemNqTkDxHbesF4YEAi5bfXo",
+          "mode": "list",
+          "cachedResultName": "wonderlust",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16OYRfQh-tvWWZH5df_gZemNqTkDxHbesF4YEAi5bfXo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16OYRfQh-tvWWZH5df_gZemNqTkDxHbesF4YEAi5bfXo/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        512
+      ],
+      "id": "9a52c0d6-7d69-4345-a6a1-b6b91e32f827",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "pQlJhJidJ9qOHsZk",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "lolipoplolk12@gmail.com",
+          "mode": "list",
+          "cachedResultName": "lolipoplolk12@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        448,
+        624
+      ],
+      "id": "bfbb47e7-02cf-4263-b6b4-d9b2f8e23786",
+      "name": "Create an event in Google Calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "qnRHqApZd280sY3k",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "informationagent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        -48
+      ],
+      "id": "b0fc7c94-fb20-412e-b214-f41f505db606",
+      "name": "Webhook",
+      "webhookId": "8295c296-9d52-4819-b98e-604c070cf861"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        544,
+        0
+      ],
+      "id": "afcb6ad1-c6f7-4e0d-9d07-b2d95a8d59cf",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $now }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -16,
+        464
+      ],
+      "id": "c8517030-8a1c-4fd8-87f9-485de82d159f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        864,
+        480
+      ],
+      "id": "5fc1469e-9c3a-4b9a-8b43-aa7100c653b9",
+      "name": "Send a message in Gmail",
+      "webhookId": "ddb422e1-c3a8-48fe-bff1-eec99cdc5bd4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KCYGKbcKZ1stwJWx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "chatId": "5107042474",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegramTool",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        608
+      ],
+      "id": "84d9d740-094c-4c37-a686-44f20f78c0d5",
+      "name": "Send message and wait for response in Telegram",
+      "webhookId": "b17d9a49-1905-4527-8b42-dbb16cd69a7e",
+      "credentials": {
+        "telegramApi": {
+          "id": "DyU8Slgi9E5xYFal",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -240,
+        128
+      ],
+      "id": "d0ba6cd7-3f17-4c8f-a291-b2fd09be3245",
+      "name": "Telegram Trigger",
+      "webhookId": "c402ddd6-44af-43c7-ab25-bd0e4d5627be",
+      "credentials": {
+        "telegramApi": {
+          "id": "DyU8Slgi9E5xYFal",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event in Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message and wait for response in Telegram": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bbbc47cf-6b8b-4802-b710-046f2ec80b35",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "826bb83ee123c863c02bc01c20e3a1425b77fc84aa675134772e22670078d56c"
+  },
+  "id": "yGSxD70NmeckKZyB",
+  "tags": []
+}

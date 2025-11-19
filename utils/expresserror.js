@@ -599,4 +599,46 @@ git add .
 git status
 git commit -m "Add Project files"
 
+
+
+
+ab git to push kr di sari files 
+
+ab GitHub ke upar push krna paki hai 
+
+**************push on GitHub
+
+go to render connect with GitHub then select allrepositiry if you want to host future project also other wise select only reposiratory then select our project then save 
+
+
+*********connecting repo to Render
+
+after install or save it will automatically redirect you to render go to web service  in my workspace 
+then connect then fill details as projectname,main branch ,runtime:node,remove $yarn and write npm install as built command ,then start command : node app.js then free tier then in advance options 
+auto deploy : no
+
+deployment fail hoga bcoz hmne app.js mein process.env use kia lekin hmne .env file ko git pe push kia hi nhi 
+so ab un env variables ko create krna pdega render ke upad use deploymeny successful ho jayega
+
+
+************create new service
+Environment variables
+configures Atlas :ip change krani hai local se  render ki 
+
+uske liye 
+//sorting environment variables
+goto render>dashboard>environment isme jo jo key and uski value likhi thi .env mein wo wo isme likhni hai environments on render mein 
+
+//sorting configures Atlas
+go to render>dashboard>logs>connect>it will show new ip addresses copy it 
+then go to atlas mongodb >network access>data service>add ip addresses
+copy one then conform 
+copy 2nd ip then conform 
+like this 
+
+then go to render dashboard >project name will see> at right> manual deploy>clear built cache & deploy
+
+now this is our deployed link 
+: https://wonderlust-3kf9.onrender.com
 */
+
